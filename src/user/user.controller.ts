@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Put} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('players')
 export class UserController {
@@ -29,12 +30,12 @@ export class UserController {
     }
 
     @Put(':id')
-    async createUser(
+    async updateUser(
         @Param('id')
         id: string,
         @Body()
-        user: CreateUserDto
+        user: UpdateUserDto
     ): Promise<User> {
-        return this.userService.create(user);
+        return this.userService.updateById(id, user);
     }
 }
