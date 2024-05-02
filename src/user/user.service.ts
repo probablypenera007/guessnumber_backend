@@ -30,12 +30,7 @@ export class UserService {
     }
 
     async updateById(id: string, user: User): Promise<User> {
-        const user = await this.userModel.findById(id);
-
-        if(!user) {
-            throw new NotFoundException('Player not found');
-        }
-        return user;
+        return await this.userModel.findById(id);
     }
 }
 
