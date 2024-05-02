@@ -5,32 +5,34 @@ import { User } from './schemas/user.schema';
 
 @Injectable()
 export class UserService {
-    constructor (
-        @InjectModel(User.name) 
-        private userModel: mongoose.Model<User>
-    ) {}
+  constructor(
+    @InjectModel(User.name)
+    private userModel: mongoose.Model<User>,
+  ) {}
 
-    async findAll(): Promise<User[]> {
-        const users = await this.userModel.find();
-        return users;
+  async findAll(): Promise<User[]> {
+    const users = await this.userModel.find();
+    return users;
+  }
+
+  async create(user: User): Promise<User> {
+    const res = await this.userModel.create(user);
+    return res;
+  }
+
+  async findById(id: string): Promise<User> {
+    const user = await this.userModel.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('Player not found');
     }
+    return user;
+  }
 
-    async create(user: User): Promise<User> {
-        const res = await this.userModel.create(user);
-        return res;
-    }
-
-    async findById(id: string): Promise<User> {
-        const user = await this.userModel.findById(id);
-
-        if(!user) {
-            throw new NotFoundException('Player not found');
-        }
-        return user;
-    }
-
-    async updateById(id: string, user: User): Promise<User> {
-        return await this.userModel.findById(id);
-    }
+  async updateById(id: string, user: User): Promise<User> {
+    return await this.userModel.findByIdAndUpDate(id, user, {
+      new: true,
+      runValidators: true,
+    });
+  }
 }
-
