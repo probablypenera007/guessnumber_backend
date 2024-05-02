@@ -44,6 +44,6 @@ export class UserController {
         @Param('id')
         id: string
     ): Promise<User> {
-        return this.userService.findById(id);
+        return this.userService.deleteById(id, );
     }
 }
