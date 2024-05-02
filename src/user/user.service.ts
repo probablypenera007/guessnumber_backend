@@ -16,8 +16,8 @@ export class UserService {
     }
 
     async create(user: User): Promise<User> {
-        const createdUser = new this.userModel(user);
-        return createdUser.save();
+        const res = await this.userModel.create(user);
+        return res;
     }
 }
 
