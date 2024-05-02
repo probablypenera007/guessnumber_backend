@@ -30,7 +30,7 @@ export class UserService {
   }
 
   async updateById(id: string, user: User): Promise<User> {
-    return await this.userModel.findByIdAndUpDate(id, user, {
+    return await this.userModel.findByIdAndUpdate(id, user, {
       new: true,
       runValidators: true,
     });
