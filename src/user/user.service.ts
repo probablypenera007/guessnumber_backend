@@ -18,7 +18,8 @@ export class UserService {
     }
 
     async findAll(): Promise<User[]> {
-        return this.userModel.find().exec();
+        const users = await this.userModel.find();
+        return users;
     }
 }
 
